@@ -47,7 +47,7 @@ Run the Application: Once the setup is complete, you can start the chatbot appli
 
 Bash
 
-python modern_chatbot5.py
+python modern_chatbot_github.py
 
 ## 📋 Requirements
 The following Python libraries are required to run the chatbot:
