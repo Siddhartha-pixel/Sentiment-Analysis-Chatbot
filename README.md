@@ -1,7 +1,7 @@
-##Safe AI Voice Chatbot
+## Safe AI Voice Chatbot
 This project is a mental health-focused chatbot application with a graphical user interface (GUI). Developed in Python, it uses sentiment analysis to provide emotionally aware conversational support and, in critical situations, sends an emergency SMS alert to a trusted contact.
 
-##⚙️ Features
+## ⚙️ Features
 Voice and Text Interaction: Users can communicate with the chatbot by typing or by speaking using their microphone. The system supports both voice input and text-to-speech output for natural interaction.
 
 Sentiment Analysis: The chatbot analyzes user input to determine if the sentiment is positive, negative, or neutral. It then provides a tailored, supportive response based on the detected emotion.
