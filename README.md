@@ -1,68 +1,70 @@
-## Safe AI Voice Chatbot
-This project is a mental health-focused chatbot application with a graphical user interface (GUI). Developed in Python, it uses sentiment analysis to provide emotionally aware conversational support and, in critical situations, sends an emergency SMS alert to a trusted contact.
+## 💬 Safe AI Voice Chatbot
 
-## ⚙️ Features
-Voice and Text Interaction: Users can communicate with the chatbot by typing or by speaking using their microphone. The system supports both voice input and text-to-speech output for natural interaction.
+## 🌟 Project Overview
+This project is an advanced, mental health-focused chatbot with a graphical user interface (GUI). It combines modern Python libraries for speech-to-text, text-to-speech, sentiment analysis, and natural language processing. The chatbot's core is a sophisticated triage system designed to provide compassionate, context-aware support and, in critical situations, trigger immediate interventions.
 
-Sentiment Analysis: The chatbot analyzes user input to determine if the sentiment is positive, negative, or neutral. It then provides a tailored, supportive response based on the detected emotion.
+## ✨ Key Features
+* **Intuitive Voice & Text Interaction:**
+    * Communicate with the chatbot via both typed messages and voice input using your computer's microphone.
+    * The system uses the `SpeechRecognition` library to convert your voice to text and `pyttsx3` to read the bot's responses aloud, offering a natural conversational experience.
 
-Critical Keyword Detection: A predefined list of keywords related to self-harm and danger is used to identify and respond to high-risk situations immediately.
+* **Intelligent Triage & Safety System:**
+    * **Level 0 - Harm to Others:** The system uses `spaCy` to perform dependency parsing and identify direct threats of harm to others (e.g., "I will hurt someone"). This triggers a serious, non-empathetic response and sends an emergency SMS alert.
+    * **Level 1 - Crisis:** Detects severe distress and self-harm keywords (e.g., "suicide", "want to die"). It immediately provides compassionate support, lists national helplines, and triggers an SMS alert via the `Twilio` API.
+    * **Level 2 - Distress:** Identifies keywords related to general sadness, depression, or hopelessness (e.g., "depressed," "hopeless"). The bot responds with empathy, validating the user's feelings and gently suggesting professional resources.
+    * **Specialized Intents:** Uses a `scikit-learn` model to distinguish between general conversation, math problems (which are solved with `sympy`), and other specific topics like "pest control" to ensure the response is always appropriate.
+    * **General Conversation:** For all other inputs, the chatbot defaults to a friendly, general-purpose assistant persona.
 
-Emergency SMS Alert: In response to critical keywords, the application automatically sends a text message alert to a pre-configured trusted phone number using the Twilio API. This serves as an immediate intervention mechanism.
+* **Emotional Awareness:**
+    * Leverages a pre-trained `Hugging Face` model (`SamLowe/roberta-base-go_emotions`) to analyze the sentiment of a user's message, classifying it as Positive, Negative, or Neutral.
 
-Accessibility & Usability: The GUI is built with CustomTkinter and includes features like "High Contrast" mode to improve readability and "Anonymous Mode" for user privacy.
+* **API Integration:**
+    * Utilizes the **Google Gemini API** (`gemini-1.5-flash-latest`) to generate highly conversational and context-aware responses based on the determined situation.
 
-Resource Suggestions: A dedicated button provides a list of mental health resources and helplines.
+## ⚙️ Project Architecture
+The application follows a logical flow to process user input and generate a response. 
+
+1.  **Input:** The user speaks or types a message.
+2.  **Triage:** The input is analyzed by a multi-layered triage system. This system checks for safety keywords and uses an ML model to classify the intent (e.g., Math, General, Crisis).
+3.  **Prompt Selection:** Based on the triage result, the application selects a specific `SYSTEM_PROMPT` to set the tone and purpose for the AI's response.
+4.  **AI Generation:** The user's message and the selected system prompt are sent to the Google Gemini API.
+5.  **Output:** The generated response is displayed in the GUI, converted to speech, and, if a critical situation was detected, an SMS alert is sent.
 
 ## 🚀 How to Run the App
-Clone the Repository: Download or clone this project to your local machine.
+### Prerequisites
+* Python 3.8 or higher
+* A microphone for voice input
 
-Set up a Virtual Environment: It is highly recommended to use a virtual environment to manage dependencies. Open your terminal in the project directory and run:
+### 🛠️ Setup & Installation
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/YourUsername/Your-Repository-Name.git](https://github.com/YourUsername/Your-Repository-Name.git)
+    cd Your-Repository-Name
+    ```
+2.  **Create a virtual environment (recommended):**
+    ```bash
+    python -m venv venv
+    # On Windows
+    venv\Scripts\activate
+    # On macOS/Linux
+    source venv/bin/activate
+    ```
+3.  **Install the required libraries:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+4.  **Download the spaCy NLP model:**
+    ```bash
+    python -m spacy download en_core_web_md
+    ```
 
-Bash
+### 🔑 API Keys Configuration
+You must set your API keys as environment variables to keep sensitive information secure.
 
-python -m venv venv
-Activate the Virtual Environment:
+* **Twilio:** `TWILIO_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_PHONE_NUMBER`, `TRUSTED_PHONE_NUMBER`
+* **Google AI:** `GOOGLE_AI_API_KEY`
 
-On Windows: venv\Scripts\activate
-
-On macOS/Linux: source venv/bin/activate
-
-Install the Required Libraries: Install all necessary dependencies using the requirements.txt file.
-
-Bash
-
-pip install -r requirements.txt
-Configure Twilio API: The application requires your Twilio API credentials to send SMS alerts. To keep your sensitive information secure, you must set these as environment variables on your system. You can get these details from your Twilio dashboard.
-
-TWILIO_SID
-
-TWILIO_AUTH_TOKEN
-
-TWILIO_PHONE_NUMBER
-
-TRUSTED_PHONE_NUMBER
-
-Run the Application: Once the setup is complete, you can start the chatbot application:
-
-Bash
-
+### 💻 Usage
+To start the chatbot, simply run the main Python script. Make sure your environment variables are active in your terminal.
+```bash
 python modern_chatbot_github.py
-
-## 📋 Requirements
-The following Python libraries are required to run the chatbot:
-
-customtkinter: For the modern, customizable GUI.
-
-speechrecognition: To handle voice input from the user.
-
-pyttsx3: To enable the chatbot's voice (text-to-speech).
-
-transformers: To perform sentiment analysis using a pre-trained model.
-
-torch: A dependency of the transformers library, required for the model to run.
-
-twilio: To send emergency SMS alerts to a trusted contact.
-
-⚠️ Important Disclaimer
-This application is a prototype and should not be used as a substitute for professional medical or psychological advice. In an emergency, always contact a trained professional or an official helpline.
