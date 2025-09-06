@@ -1,6 +1,15 @@
 customtkinter
-SpeechRecognition
 pyttsx3
+SpeechRecognition
+pyaudio
 transformers
 torch
+accelerate
+google-generativeai
+py-cord
+nltk
+sympy
+numpy
+scikit-learn
+spacy
 twilio
